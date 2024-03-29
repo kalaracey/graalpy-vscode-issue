@@ -8,6 +8,9 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+
+    // For GraalPy.
+    id("org.javamodularity.moduleplugin") version "1.8.12"
 }
 
 repositories {
@@ -21,6 +24,9 @@ dependencies {
 
     // This dependency is used by the application.
     implementation(libs.guava)
+
+    implementation("org.graalvm.polyglot:polyglot:23.1.2")
+    implementation("org.graalvm.polyglot:python:23.1.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -33,4 +39,8 @@ java {
 application {
     // Define the main class for the application.
     mainClass.set("interop.App")
+
+    mainModule.set("interop")
+ 
+    // applicationDefaultJvmArgs = listOf("-XX:+UnlockExperimentalVMOptions", "-XX:+EnableJVMCI")
 }
